@@ -740,12 +740,50 @@ class Trade:
         
         return candidatesDict
 
+    def  isBoxShare(self, code):
 
+        inXAQuery.LoadFromResFile("C:\\eBEST\\xingAPI\\Res\\t1305.res")
+        days = '10'#to get stock info duing this days variable
+        dwmcode = '1'# day: 1, week: 2, month: 3
+        
+        time.sleep(6)
 
+        inXAQuery.SetFieldData('t1305InBlock', 'shcode',0,code)
+        inXAQuery.SetFieldData('t1305InBlock', 'dwmcode',0,dwmcode)
+        inXAQuery.SetFieldData('t1305InBlock', 'cnt',0,days)#to get stock info duing 'days' days
+        inXAQuery.Request(False)
 
+        while XAQueryEvents.queryState == 0:
+            pythoncom.PumpWaitingMessages()
 
+        XAQueryEvents.queryState = 0
 
+        nCount = inXAQuery.GetBlockCount('t1305OutBlock1')
+            
+            #If 'nCount' is smaller than days, pass this 'stock'
+        if nCount is not int(days):
+            return False
 
+        flag = True
+        low_mean = 0
+        high_mean = 0
+
+        for i in reversed(range(nCount)):
+            low = int(inXAQuery.GetFieldData('t1305OutBlock1', 'low',i))
+            high = int(inXAQuery.GetFieldData('t1305OutBlock1', 'high',i))
+            low_mean +=low
+            high_mean+=high
+
+            box_gap = high-low
+            print("value of box_gap:  ",box_gap)
+                
+            if box_gap <=1500 and box_gap >=1000:
+                continue
+            else:
+                flag = False
+                break
+
+            return flag
 
 
 
