@@ -13,6 +13,7 @@ class Company:
         self.ordAbleAmt = 0.0#주문가능금액
         self.prdayPrice = 0.0#전일가
         #self.chkedDate = ""#모니터링 시작한(cheked)날짜
+        self.initPrice = 0.0#분석 알고리즘으로 도출했을때 처음 가격
 
     def updateInfo(self, price = 0, units = 0, trTp = 1):# 0 : 매도(sell), 1: 매수(buy)
         print("calculate some values to estimate a stock")

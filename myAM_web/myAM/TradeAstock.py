@@ -5,7 +5,7 @@ import Log
 import time
 import os
 os.environ['DJANGO_SETTINGS_MODULE'] = 'myAM_web.settings'
-from analysis.models import Share # code to TEST DB
+#from analysis.models import Share # code to TEST DB
 from analysis.models import AMuser
 
 from XASessionEventClass import XASessionEvents
@@ -21,6 +21,7 @@ class Trade:
         self.myStockList = {}
         self.stockFirstTrDateDict = {}
         self.myStockAcnt = account
+        #self.inXAQuery = win32com.client.DispatchWithEvents("XA_DataSet.XAQuery", XAQueryEvents)
         
     def logIn(self, u_id, u_pass):
         #It makes an authentification by Xing API
@@ -533,7 +534,7 @@ class Trade:
         
         return candidatesDict
 
-    def getCandidateStocks3(self, nCandidates):
+    def getCandidateStocks3(self, nCandidates):#R3I Algorithm
 
         Log.mkLog("TradeAstock:getCandidateStocks3","Get candidate stocks from Xing API")
         #--------------------------------------------------------------------
@@ -572,7 +573,6 @@ class Trade:
         #--------------------------------------------------------------------
         inXAQuery.LoadFromResFile("C:\\eBEST\\xingAPI\\Res\\t1305.res")
         newStockList=[]
-        upLmtdiff = 10.0
         nIndex = 0
         days = '30'#to get stock info duing this days variable
         gap = 3
@@ -740,37 +740,20 @@ class Trade:
         
         return candidatesDict
 
-    def  isBoxShare(self, code):
-
-        inXAQuery.LoadFromResFile("C:\\eBEST\\xingAPI\\Res\\t1305.res")
-        days = '10'#to get stock info duing this days variable
-        dwmcode = '1'# day: 1, week: 2, month: 3
-        
-        time.sleep(6)
-
-        inXAQuery.SetFieldData('t1305InBlock', 'shcode',0,code)
-        inXAQuery.SetFieldData('t1305InBlock', 'dwmcode',0,dwmcode)
-        inXAQuery.SetFieldData('t1305InBlock', 'cnt',0,days)#to get stock info duing 'days' days
-        inXAQuery.Request(False)
-
-        while XAQueryEvents.queryState == 0:
-            pythoncom.PumpWaitingMessages()
-
-        XAQueryEvents.queryState = 0
-
-        nCount = inXAQuery.GetBlockCount('t1305OutBlock1')
+    def  isBoxShare(self, XAQuery):
+        nCount = XAQuery.GetBlockCount('t1305OutBlock1')
             
             #If 'nCount' is smaller than days, pass this 'stock'
-        if nCount is not int(days):
+        if nCount < 10 :
             return False
 
         flag = True
         low_mean = 0
         high_mean = 0
 
-        for i in reversed(range(nCount)):
-            low = int(inXAQuery.GetFieldData('t1305OutBlock1', 'low',i))
-            high = int(inXAQuery.GetFieldData('t1305OutBlock1', 'high',i))
+        for i in range(10):
+            low = int(XAQuery.GetFieldData('t1305OutBlock1', 'low',i))
+            high = int(XAQuery.GetFieldData('t1305OutBlock1', 'high',i))
             low_mean +=low
             high_mean+=high
 
@@ -785,13 +768,126 @@ class Trade:
 
             return flag
 
+    def isR10TShare(self, XAQuery):
+        #--------------------------------------------------------------------
+        # Distinguish stocks to buy stocks which is going up during 10 days.
+        #--------------------------------------------------------------------
+        nCount = XAQuery.GetBlockCount('t1305OutBlock1')
+        upLmtdiff = 10.0
+            
+        if nCount < 10:
+            return False
 
+        total_diff = 0.0
 
+        for i in range(10):
+            diff = float(XAQuery.GetFieldData('t1305OutBlock1', 'diff', i))
+            if (i is 1 and diff <= 0) or diff < -20 or diff > 13#20 : #If down growth is break on the day before or diff value is bigger than 20 or smaller than -20
+                total_diff = -1
+                break
+            total_diff += diff
 
+        if total_diff > upLmtdiff:
+            return True
+        else:
+            return False
 
+    def isR3IShare(self, XAQuery):
+        #--------------------------------------------------------------------
+        # Distinguish stocks to buy stocks which is going up 3days and figure out high price for one month
+        #--------------------------------------------------------------------
+        nCount = XAQuery.GetBlockCount('t1305OutBlock1')
+            
+        if nCount is not 30:
+            return False
 
+        total_diff = 0.0
+        gap = 3
+        price_month=[]
+        flag = True
 
+        for i in reversed(range(nCount)):
+            price_month.append(int(XAQuery.GetFieldData('t1305OutBlock1', 'close',i)))
 
+        stdPrice_month = int(max(price_month)*0.8)
 
+        for i in reversed(range(gap)):
+            price = int(XAQuery.GetFieldData('t1305OutBlock1', 'close',i))
+            diff = float(XAQuery.GetFieldData('t1305OutBlock1', 'diff', i))
+            total_diff +=diff
+            if price <= stdPrice_month and diff > 0 and diff <= 10:
+                pass
+            else:
+                flag = False
 
-        
+        return flag
+
+    def get3CandidateShareList(self):
+        ''''This method is used to get three kinds of candidate share.
+            First is BOX Algorithm, second is R3I Algorithm, third is R10T Algorithm '''
+        #--------------------------------------------------------------------
+        # Get some stocks which have a specific scope of price(10000~20000)
+        #--------------------------------------------------------------------
+        inXAQuery = win32com.client.DispatchWithEvents("XA_DataSet.XAQuery", XAQueryEvents)
+        inXAQuery.LoadFromResFile("C:\\eBEST\\xingAPI\\Res\\t8430.res")
+        inXAQuery.SetFieldData('t8430InBlock', 'gubun', 0, 0)#0 get all, 1 COSPI, 2 COSDAQ
+        inXAQuery.Request(False)
+
+        while XAQueryEvents.queryState == 0:
+            pythoncom.PumpWaitingMessages()
+
+        XAQueryEvents.queryState = 0
+
+        # Get Stock list
+        stockList = []
+        nCount = inXAQuery.GetBlockCount('t8430OutBlock')
+        print("All count of company ",nCount)
+        for i in range(nCount):     
+            jnilclose = float(inXAQuery.GetFieldData('t8430OutBlock', 'jnilclose', i))
+            # if jnilclose <= 20000 and jnilclose >= 10000 :#get all of cosdaq stock company
+            # if jnilclose <= 10000 :
+            name = inXAQuery.GetFieldData('t8430OutBlock', 'hname', i)
+            shcode = inXAQuery.GetFieldData('t8430OutBlock', 'shcode', i)
+            recprice = int(inXAQuery.GetFieldData('t8430OutBlock', 'recprice', i))
+
+            c=Company()
+            c.stockCode = shcode #주식번호
+            c.stockName = name #주식회사 이름
+            c.initPrice = recprice#기준가
+                
+            stockList.append(c)
+            del c
+
+        inXAQuery.LoadFromResFile("C:\\eBEST\\xingAPI\\Res\\t1305.res")
+        BOX_list=[]
+        R3I_list=[]
+        R10T_list[]
+        days = '30'#to get stock info duing this days variable
+        dwmcode = '1'# day: 1, week: 2, month: 3
+
+        print("number of stock to estimate: ", len(stockList))
+        totstkList = len(stockList)
+        for stock in stockList:
+            time.sleep(6)
+            curstk = stockList.index(stock)+1
+            print("%s / %s======percent: %s"%(curstk, totstkList , int(curstk/totstkList * 100)))
+            inXAQuery.SetFieldData('t1305InBlock', 'shcode',0,stock.stockCode)
+            inXAQuery.SetFieldData('t1305InBlock', 'dwmcode',0,dwmcode)
+            inXAQuery.SetFieldData('t1305InBlock', 'cnt',0,days)#to get stock info duing 'days' days
+            inXAQuery.Request(False)
+
+            while XAQueryEvents.queryState == 0:
+                pythoncom.PumpWaitingMessages()
+
+            XAQueryEvents.queryState = 0
+
+            if self.isBoxShare(inXAQuery):
+                BOX_list.append(stock)
+
+            if self.isR3IShare(inXAQuery):
+                R3I_list.append(stock)
+
+            if self.isR10TShare(inXAQuery):
+                R10T_list.append(stock)
+
+        return (BOX_list, R3I_list, R10T_list)

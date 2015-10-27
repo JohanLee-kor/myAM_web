@@ -7,7 +7,7 @@ class Share(models.Model):
 	name = models.CharField(max_length=50) #name of stock
 	code = models.CharField(max_length=10) #code os stock
 	init_price = models.IntegerField(default=0)#initial price of stock derived from analysis algorithm
-	now_price = models.IntegerField(default=0)#now price of stock
+	#now_price = models.IntegerField(default=0)#now price of stock
 	drv_date = models.DateTimeField('date derived',auto_now = True)#date derived from analysis algorithm
 
 class AMuser(models.Model):
