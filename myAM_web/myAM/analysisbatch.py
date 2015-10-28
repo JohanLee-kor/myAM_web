@@ -18,13 +18,22 @@ if __name__=="__main__":
     R10T_list=shareList[2]
 
     for share in BOX_list:
-    	s = Share(analysis_type='BOX', name=share.stockName, code=share.stockCode, init_price=share.initPrice)
-    	s.save()
+        try:
+            s = Share.objects.get(analysis_type='BOX', code=share.stockCode)
+        except Share.DoesNotExist:
+            s = Share(analysis_type='BOX', name=share.stockName, code=share.stockCode, init_price=share.initPrice)
+            s.save()
 
     for share in R3I_list:
-    	s = Share(analysis_type='R3I', name=share.stockName, code=share.stockCode, init_price=share.initPrice)
-    	s.save()
+        try:
+            s = Share.objects.get(analysis_type='R3I', code=share.stockCode)
+        except Share.DoesNotExist:
+            s = Share(analysis_type='R3I', name=share.stockName, code=share.stockCode, init_price=share.initPrice)
+            s.save()
 
     for share in R10T_list:
-    	s = Share(analysis_type='R10T', name=share.stockName, code=share.stockCode, init_price=share.initPrice)
-    	s.save()
+        try:
+            s = Share.objects.get(analysis_type='R10T', code=share.stockCode)
+        except Share.DoesNotExist:
+            s = Share(analysis_type='R10T', name=share.stockName, code=share.stockCode, init_price=share.initPrice)
+            s.save()
