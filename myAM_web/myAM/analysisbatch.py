@@ -2,6 +2,7 @@ from TradeAstock import Trade
 from account import Account
 from company import Company
 import time
+import os
 
 os.environ['DJANGO_SETTINGS_MODULE'] = 'myAM_web.settings'
 from analysis.models import Share # code to TEST DB

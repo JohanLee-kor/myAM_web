@@ -760,7 +760,7 @@ class Trade:
             box_gap = high-low
             print("value of box_gap:  ",box_gap)
                 
-            if box_gap <=1500 and box_gap >=1000:
+            if box_gap <=3000 and box_gap >=1000:
                 continue
             else:
                 flag = False
@@ -782,7 +782,7 @@ class Trade:
 
         for i in range(10):
             diff = float(XAQuery.GetFieldData('t1305OutBlock1', 'diff', i))
-            if (i is 1 and diff <= 0) or diff < -20 or diff > 13#20 : #If down growth is break on the day before or diff value is bigger than 20 or smaller than -20
+            if (i is 1 and diff <= 0) or diff < -20 or diff > 13 :#20 : #If down growth is break on the day before or diff value is bigger than 20 or smaller than -20
                 total_diff = -1
                 break
             total_diff += diff
@@ -861,7 +861,7 @@ class Trade:
         inXAQuery.LoadFromResFile("C:\\eBEST\\xingAPI\\Res\\t1305.res")
         BOX_list=[]
         R3I_list=[]
-        R10T_list[]
+        R10T_list=[]
         days = '30'#to get stock info duing this days variable
         dwmcode = '1'# day: 1, week: 2, month: 3
 
