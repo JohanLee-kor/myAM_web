@@ -56,7 +56,7 @@ ROOT_URLCONF = 'myAM_web.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['myAM_web/templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
