@@ -1,17 +1,17 @@
 import win32com.client
 #import yjauthentication
 import pythoncom
-import Log
+import myAM_web.myAM.Log as Log
 import time
 import os
 os.environ['DJANGO_SETTINGS_MODULE'] = 'myAM_web.settings'
 #from analysis.models import Share # code to TEST DB
 from analysis.models import AMuser
 
-from XASessionEventClass import XASessionEvents
-from XAQueryEventClass import XAQueryEvents
-from company import Company
-from account import Account
+from myAM_web.myAM.XASessionEventClass import XASessionEvents
+from myAM_web.myAM.XAQueryEventClass import XAQueryEvents
+from myAM_web.myAM.company import Company
+from myAM_web.myAM.account import Account
 import common.xingINFO as xing
 
 

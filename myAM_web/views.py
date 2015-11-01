@@ -3,7 +3,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
 from myAM_web.myAM.TradeAstock import Trade
 
-from .models import Share
+from analysis.models import Share
 # Create your views here.
 def login(request):
 	context={}
