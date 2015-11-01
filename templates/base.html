@@ -1,0 +1,80 @@
+<!DOCTYPE>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <title>{% block title %}myAM Service{% endblock %}</title>
+        <style>
+            body{
+            }
+            
+            header{
+                position: relative;
+                height: 20%;
+                background-color: #bbccce;
+                font-family: sans-serif;
+                text-align: center;
+                font-size: 80px;
+                font-stretch: expanded;
+            }
+            header>p{
+                position: absolute;
+                top: 10%;
+                left: 0;
+                right: 0;
+                margin-top: -1px;
+                
+            }
+            div#logIn{
+                position: relative;
+                height: 60%;
+                background-color: aliceblue;
+            }
+            #logIn>img{
+                position: absolute;
+                top: 50%;
+                left: 32%;
+                right: 0;
+                margin-top: -5px;
+            }
+            footer{
+                position: relative;
+                height: 20%;
+                background-color: #bbccce;
+                text-align: center;
+            }
+            
+            footer>p{
+                font-family: sans-serif;
+                position: absolute;
+                top: 50%;
+                left: 0;
+                right: 0;
+                margin-top: -9px;
+                
+            }
+        </style>
+    </head>
+    <body>
+        <header>
+            <p>myAM</p>
+        </header>
+        
+        <div id="sidebar">
+            {% block sidebar %}
+            <ul>
+                <li><a href="/analysis/main/">Home</a></li>
+<!--                <li><a href="/what is myAM?/">Blog</a></li>-->
+            </ul>
+            {% endblock %}
+        </div>
+
+        <div id="content">
+            {% block content %}{% endblock %}
+        </div>
+        
+        <footer>
+            <p>copy right by Johan Lee - 2015</p>
+        </footer>
+    
+    </body>
+</html>
