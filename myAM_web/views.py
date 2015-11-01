@@ -5,6 +5,6 @@ from myAM_web.myAM.TradeAstock import Trade
 
 from .models import Share
 # Create your views here.
-def main(request):
+def login(request):
 	context={}
-	return render(request, 'main.html', context)
+	return render(request, 'login.html', context)
