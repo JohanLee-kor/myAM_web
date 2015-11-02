@@ -1,3 +1,14 @@
+{% extends "base.html" %}
+{% block sidebar %}
+<ul>
+	<li><a href="{% url 'main' %}">Go to main page</a></li>
+</ul>
+{% endblock %}
+{% block content %}
+<h1>This is log in page</h1>
+
+{% endblock %}
+
 <!-- <!DOCTYPE>
 <html>
 <head>
@@ -7,11 +18,3 @@
 	<a href="{% url 'main' %}">Go to main page</a>
 </body>
 </html> -->
-{% extends base.html%}
-{% block sidebar %}
-	<a href="{% url 'main' %}">Go to main page</a>
-{% endblock %}
-{% block content %}
-<h1>This is log in page</h1>
-
-{% endblock %}
