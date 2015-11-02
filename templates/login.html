@@ -1,4 +1,4 @@
-<!DOCTYPE>
+<!-- <!DOCTYPE>
 <html>
 <head>
 </head>
@@ -6,4 +6,12 @@
 	<h1>This is log in page</h1>
 	<a href="{% url 'main' %}">Go to main page</a>
 </body>
-</html>
+</html> -->
+{% extends base.html%}
+{% block sidebar %}
+	<a href="{% url 'main' %}">Go to main page</a>
+{% endblock %}
+{% block content %}
+<h1>This is log in page</h1>
+
+{% endblock %}
