@@ -8,3 +8,7 @@ from .models import Share
 def main(request):
 	context={}
 	return render(request, 'main.html', context)
+
+def analysisShare(request, analysis_type):#analysis_type 0: R3I, 1: R10T, 2: BOX
+	context={}
+	return render(request, 'analysis.html', context)

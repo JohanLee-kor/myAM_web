@@ -1,4 +1,5 @@
 from django.db import models
+from datetime import datetime, timezone
 
 # Create your models here.
 class Share(models.Model):
@@ -12,6 +13,9 @@ class Share(models.Model):
 
 	def __str__(self):
 		return "%s, %s, %s, %s, %s"%(self.analysis_type, self.name, self.code, self.init_price,self.drv_date)
+
+	def getDays(self):
+		return (datetime.now(timezone.utc)-self.drv_date).days
 		
 class AMuser(models.Model):
 	"""This class a model means my Asset Manager user"""
