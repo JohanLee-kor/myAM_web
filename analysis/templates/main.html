@@ -4,20 +4,14 @@
 {% block content %}
 <h1>This is Main page</h1>
 {% for share in shareList %}
+<table>
 <tr>
-	<td>share.name</td>
-	<td>share.code</td>
-	<td>share.init_price</td>
-	<td>share.drv_date</td>
+	<td>{{share.name}}</td>
+	<td>{{share.code}}</td>
+	<td>{{share.init_price}}</td>
+	<td>{{share.drv_date}}</td>
 </tr>
+</table>
 {%endfor %}
-
-<h2>COSPI</h2>
-<tr>
-	<td>{{cospi['pricejisu']}}</td>
-	<td>{{cospi['jniljisu']}}</td>
-	<td>{{cospi['sign']}}</td>
-	<td>{{cospi['change']}}</td>
-	<td>{{cospi['diffjisu']}}</td>
-</tr>
+<h2>{{cospi.hname}}</h2>
 {% endblock %}
