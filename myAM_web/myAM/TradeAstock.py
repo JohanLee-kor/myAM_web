@@ -339,6 +339,47 @@ class Trade:
 
         return (price, cgdgree)
 
+    def getStockMarketInfo(self, upcode):
+        # 전일, 당일의 주식 시장(코스피, 코스닥) 정보(전일, 당일, 등락률..)를 가져온다.
+        # Get some of stock market information
+        info={}
+        inXAQuery = win32com.client.DispatchWithEvents("XA_DataSet.XAQuery", XAQueryEvents)
+        inXAQuery.LoadFromResFile("C:\\eBEST\\xingAPI\\Res\\t1511.res")
+        inXAQuery.SetFieldData('t1511InBlock', 'upcode', 0, upcode)#COSPI: 001, COSDAQ: 301
+
+        inXAQuery.Request(False)
+        while XAQueryEvents.queryState == 0:
+            pythoncom.PumpWaitingMessages()
+
+        XAQueryEvents.queryState = 0
+
+        # Get FieldData
+        gubun = inXAQuery.GetFieldData('t1511OutBlock', 'gubun', 0)
+        hname = inXAQuery.GetFieldData('t1511OutBlock', 'hname', 0)
+        pricejisu = float(inXAQuery.GetFieldData('t1511OutBlock', 'pricejisu', 0))
+        jniljisu = float(inXAQuery.GetFieldData('t1511OutBlock', 'jniljisu', 0))
+        sign = inXAQuery.GetFieldData('t1511OutBlock', 'sign', 0)
+        change = float(inXAQuery.GetFieldData('t1511OutBlock', 'change', 0))
+        diffjisu = float(inXAQuery.GetFieldData('t1511OutBlock', 'diffjisu', 0))
+        volume = long(inXAQuery.GetFieldData('t1511OutBlock', 'volume', 0))
+        jnilvolume = long(inXAQuery.GetFieldData('t1511OutBlock', 'jnilvolume', 0))
+        volumechange = long(inXAQuery.GetFieldData('t1511OutBlock', 'volumechange', 0))
+        volumerate = long(inXAQuery.GetFieldData('t1511OutBlock', 'volumerate', 0))
+
+        info['gubun'] = gubun
+        info['hname'] = hname
+        info['pricejisu'] = pricejisu
+        info['jniljisu'] = jniljisu
+        info['sign'] = sign
+        info['change'] = change
+        info['diffjisu'] = diffjisu
+        info['volume'] = volume
+        info['jnilvolume'] = jnilvolume
+        info['volumechange'] = volumechange
+        info['volumerate'] = volumerate
+
+        return info
+
     def getCandidateStocks(self, nCandidates):
         print("request candidate stocks from Xing")
         #--------------------------------------------------------------------

@@ -2,9 +2,22 @@ from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
 from myAM_web.myAM.TradeAstock import Trade
+from myAM_web.myAM.account import Account
 
 from analysis.models import Share
 # Create your views here.
-def login(request):
+def home(request):
 	context={}
 	return render(request, 'login.html', context)
+
+def login(request):
+	m = AMuser.objects.get(am_id=request.POST['ID'])
+	if m.am_pass == request.POST['PW']:
+		request.session['am_id'] = m.am_id
+		myAcnt = Account()
+		myTrade = Trade(myAcnt)
+		myTrade.logIn(m.am_id,m.am_pass)
+		request.session['myTrade']=myTrade
+		return HttpResponseRedirect(reverse('main'))
+	else:
+		return HttpResponse("Your username and password didn't match.")

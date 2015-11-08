@@ -1,9 +1,11 @@
 {% extends "base.html" %}
 {% block sidebar %}
-<ul>
-	<li><a href="{% url 'main' %}">Go to main page</a></li>
-</ul>
 {% endblock %}
+<form method="post" action="{% url 'login' %}">
+    <input type="text" name="ID" value=" " placeholder="Your ID"/>
+    <input type="password" name="PW" value=" " placeholder="Password"/>
+    <input type="submit"  name = "logIn" value="Log IN" />
+</form>
 {% block content %}
 <h1>This is log in page</h1>
 
