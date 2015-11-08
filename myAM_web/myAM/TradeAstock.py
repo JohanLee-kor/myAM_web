@@ -13,8 +13,6 @@ from myAM_web.myAM.XAQueryEventClass import XAQueryEvents
 from myAM_web.myAM.company import Company
 from myAM_web.myAM.account import Account
 import common.xingINFO as xing
-
-
 #Trade class invokes Xing API
 class Trade:
     def __init__(self, account):
@@ -361,10 +359,10 @@ class Trade:
         sign = inXAQuery.GetFieldData('t1511OutBlock', 'sign', 0)
         change = float(inXAQuery.GetFieldData('t1511OutBlock', 'change', 0))
         diffjisu = float(inXAQuery.GetFieldData('t1511OutBlock', 'diffjisu', 0))
-        volume = long(inXAQuery.GetFieldData('t1511OutBlock', 'volume', 0))
-        jnilvolume = long(inXAQuery.GetFieldData('t1511OutBlock', 'jnilvolume', 0))
-        volumechange = long(inXAQuery.GetFieldData('t1511OutBlock', 'volumechange', 0))
-        volumerate = long(inXAQuery.GetFieldData('t1511OutBlock', 'volumerate', 0))
+        volume = float(inXAQuery.GetFieldData('t1511OutBlock', 'volume', 0))
+        jnilvolume = float(inXAQuery.GetFieldData('t1511OutBlock', 'jnilvolume', 0))
+        volumechange = float(inXAQuery.GetFieldData('t1511OutBlock', 'volumechange', 0))
+        volumerate = float(inXAQuery.GetFieldData('t1511OutBlock', 'volumerate', 0))
 
         info['gubun'] = gubun
         info['hname'] = hname

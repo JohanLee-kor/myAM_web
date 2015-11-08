@@ -2,16 +2,18 @@ from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
 from myAM_web.myAM.TradeAstock import Trade
+from myAM_web.myAM.account import Account
 from datetime import timedelta, timezone, datetime
 
-from .models import Share
+from .models import Share, AMuser
+import pythoncom
 # Create your views here.
 def main(request):
 	context={}
 	# 0. 세션 확인(로그인 여부 확인)
 	isLogin =  request.session.get('am_id', False)
-        	if isLogin is False:
-        		return HttpResponseRedirect(reverse('home'))
+	if isLogin is False:
+		return HttpResponseRedirect(reverse('home'))
 
 	# 1. 디비에 접근하여서  최근일자(3일간)의 후보 주식들 갖고오기
 	now = datetime.now(timezone.utc)
@@ -20,17 +22,22 @@ def main(request):
 	
 	# 2. 현재 및 어제 COSPI, COSDAQ 정보 가져오기
 	# #COSPI: 001, COSDAQ: 301
-	myTrade = request.session.get['myTrade',False]
+	# myTrade = request.session.get['myTrade',False]
+	myAcnt = Account()
+	myTrade = Trade(myAcnt)
 	if myTrade is False:
 		return HttpResponse("myTrade session is over")
 
-	cospiInfo = myTrade.getStockMarketInfo('001')#COSPI
-	cosdaqInfo = myTrade.getStockMarketInfo('031')#COSDAQ
+	# pythoncom.CoInitialize()
+	# m = AMuser.objects.get(am_id=request.session['am_id'])
+	# myTrade.logIn(m.am_id,m.am_pass)
+	# cospiInfo = myTrade.getStockMarketInfo('001')#COSPI
+	# cosdaqInfo = myTrade.getStockMarketInfo('031')#COSDAQ
 
 	# 3. 위의 정보들을 context에 삽입후 main.html에 띄우기 
 	context['shareList']=shareList
-	context['cospi']=cosdaqInfo
-	context['cosdaq']=cosdaqInfo
+	# context['cospi']=cosdaqInfo
+	# context['cosdaq']=cosdaqInfo
 
 	return render(request, 'main.html',context)
 

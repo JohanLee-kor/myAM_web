@@ -1,12 +1,12 @@
 {% extends "base.html" %}
 {% block sidebar %}
 {% endblock %}
+{% block content %}
+<h1>This is log in page</h1>
 <form method="post" action="{% url 'login' %}">
+	{% csrf_token %}
     <input type="text" name="ID" value=" " placeholder="Your ID"/>
     <input type="password" name="PW" value=" " placeholder="Password"/>
     <input type="submit"  name = "logIn" value="Log IN" />
 </form>
-{% block content %}
-<h1>This is log in page</h1>
-
 {% endblock %}

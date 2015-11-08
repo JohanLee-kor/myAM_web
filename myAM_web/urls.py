@@ -22,5 +22,5 @@ urlpatterns = [
     # url(r'^member/',include('member.urls')),
     url(r'^analysis/',include('analysis.urls')),
     url(r'^login/$',views.login,name='login'),
-    url(r'^$',view.home,name='home'),
+    url(r'^$',views.home,name='home'),
 ]
