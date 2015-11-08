@@ -28,16 +28,16 @@ def main(request):
 	if myTrade is False:
 		return HttpResponse("myTrade session is over")
 
-	# pythoncom.CoInitialize()
-	# m = AMuser.objects.get(am_id=request.session['am_id'])
-	# myTrade.logIn(m.am_id,m.am_pass)
-	# cospiInfo = myTrade.getStockMarketInfo('001')#COSPI
-	# cosdaqInfo = myTrade.getStockMarketInfo('031')#COSDAQ
+	m = AMuser.objects.get(am_id=request.session['am_id'])
+	pythoncom.CoInitialize()
+	myTrade.logIn(m.am_id,m.am_pass)
+	cospiInfo = myTrade.getStockMarketInfo('001')#COSPI
+	cosdaqInfo = myTrade.getStockMarketInfo('301')#COSDAQ
 
 	# 3. 위의 정보들을 context에 삽입후 main.html에 띄우기 
 	context['shareList']=shareList
-	# context['cospi']=cosdaqInfo
-	# context['cosdaq']=cosdaqInfo
+	context['cospi']=cosdaqInfo
+	context['cosdaq']=cosdaqInfo
 
 	return render(request, 'main.html',context)
 

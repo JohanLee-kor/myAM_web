@@ -354,15 +354,15 @@ class Trade:
         # Get FieldData
         gubun = inXAQuery.GetFieldData('t1511OutBlock', 'gubun', 0)
         hname = inXAQuery.GetFieldData('t1511OutBlock', 'hname', 0)
-        pricejisu = float(inXAQuery.GetFieldData('t1511OutBlock', 'pricejisu', 0))
-        jniljisu = float(inXAQuery.GetFieldData('t1511OutBlock', 'jniljisu', 0))
+        pricejisu = inXAQuery.GetFieldData('t1511OutBlock', 'pricejisu', 0)
+        jniljisu = inXAQuery.GetFieldData('t1511OutBlock', 'jniljisu', 0)
         sign = inXAQuery.GetFieldData('t1511OutBlock', 'sign', 0)
-        change = float(inXAQuery.GetFieldData('t1511OutBlock', 'change', 0))
-        diffjisu = float(inXAQuery.GetFieldData('t1511OutBlock', 'diffjisu', 0))
-        volume = float(inXAQuery.GetFieldData('t1511OutBlock', 'volume', 0))
-        jnilvolume = float(inXAQuery.GetFieldData('t1511OutBlock', 'jnilvolume', 0))
-        volumechange = float(inXAQuery.GetFieldData('t1511OutBlock', 'volumechange', 0))
-        volumerate = float(inXAQuery.GetFieldData('t1511OutBlock', 'volumerate', 0))
+        change = inXAQuery.GetFieldData('t1511OutBlock', 'change', 0)
+        diffjisu = inXAQuery.GetFieldData('t1511OutBlock', 'diffjisu', 0)
+        volume = inXAQuery.GetFieldData('t1511OutBlock', 'volume', 0)
+        jnilvolume = inXAQuery.GetFieldData('t1511OutBlock', 'jnilvolume', 0)
+        volumechange = inXAQuery.GetFieldData('t1511OutBlock', 'volumechange', 0)
+        volumerate = inXAQuery.GetFieldData('t1511OutBlock', 'volumerate', 0)
 
         info['gubun'] = gubun
         info['hname'] = hname
