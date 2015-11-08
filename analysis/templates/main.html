@@ -1,8 +1,23 @@
-<!DOCTYPE>
-<html>
-	<head>
-	</head>
-	<body>
-		<h1>This is myAM main page</h1>
-	</body>
-</html>
+{% extends "base.html" %}
+{% block sidebar %}
+{% endblock %}
+{% block content %}
+<h1>This is Main page</h1>
+{% for share in shareList %}
+<tr>
+	<td>share.name</td>
+	<td>share.code</td>
+	<td>share.init_price</td>
+	<td>share.drv_date</td>
+</tr>
+{%endfor %}
+
+<h2>COSPI</h2>
+<tr>
+	<td>{{cospi['pricejisu']}}</td>
+	<td>{{cospi['jniljisu']}}</td>
+	<td>{{cospi['sign']}}</td>
+	<td>{{cospi['change']}}</td>
+	<td>{{cospi['diffjisu']}}</td>
+</tr>
+{% endblock %}
