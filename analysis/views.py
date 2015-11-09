@@ -43,4 +43,11 @@ def main(request):
 
 def analysisShare(request, analysis_type):#analysis_type 0: R3I, 1: R10T, 2: BOX
 	context={}
+	#0. 세션 확인(로그인 여부 확인)
+
+	#1. DB 에 접근하여  analysis_type 에 따른 share 가져오기
+
+	#2. 유추 할수 있는 데이터(최초 도출 일로 부터 얼마나 지났는지, 최초  price 와 얼마나 차이가 나는지) 계산
+
+	#3. #2에서의 정보를 context에 삽입후 analysis.html에 띄우기
 	return render(request, 'analysis.html', context)
