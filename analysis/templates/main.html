@@ -3,15 +3,15 @@
 {% endblock %}
 {% block content %}
 <h1>This is Main page</h1>
-{% for share in shareList %}
 <table>
+{% for share in shareList %}
 <tr>
 	<td>{{share.name}}</td>
 	<td>{{share.code}}</td>
 	<td>{{share.init_price}}</td>
 	<td>{{share.drv_date}}</td>
 </tr>
-</table>
 {%endfor %}
+</table>
 <h2>{{cospi.hname}}</h2>
 {% endblock %}

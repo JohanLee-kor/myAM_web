@@ -7,5 +7,5 @@ urlpatterns = [
     # url(r'^member/login',include('member.urls')),
     # url(r'^analysis/',include('analysis.'))
     url(r'^main/$',views.main,name='main'),
-    url(r'^(?P<analysis_type>[0-2]+)/$', views.analysisShare, name='analysisShare'),#analysis_type 0: R3I, 1: R10T, 2: BOX
+    url(r'^(?P<analysisType>[A-Za-z]+)/$', views.analysisShare, name='analysisShare'),#analysis_type 0: R3I, 1: R10T, 2: BOX
 ]

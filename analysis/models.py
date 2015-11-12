@@ -16,6 +16,8 @@ class Share(models.Model):
 
 	def getDays(self):
 		return (datetime.now(timezone.utc)-self.drv_date).days
+	def getDiffPrc(self, price):
+		return int(price-self.init_price)
 		
 class AMuser(models.Model):
 	"""This class a model means my Asset Manager user"""

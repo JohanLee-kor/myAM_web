@@ -41,7 +41,7 @@ def main(request):
 
 	return render(request, 'main.html',context)
 
-def analysisShare(request, analysis_type):#analysis_type 0: R3I, 1: R10T, 2: BOX
+def analysisShare(request, analysisType):#analysis_type 0: R3I, 1: R10T, 2: BOX
 	context={}
 	#0. 세션 확인(로그인 여부 확인)
 	isLogin =  request.session.get('am_id', False)
@@ -49,9 +49,49 @@ def analysisShare(request, analysis_type):#analysis_type 0: R3I, 1: R10T, 2: BOX
 		return HttpResponseRedirect(reverse('home'))
 
 	#1. DB 에 접근하여  analysis_type 에 따른 share 가져오기
+	shareList = Share.objects.filter(analysis_type=analysisType)
 
 	#2. 유추 할수 있는 데이터(최초 도출 일로 부터 얼마나 지났는지, 최초  price 와 얼마나 차이가 나는지) 계산
+	priceDict={}
+	# daysDict={}
+	m = AMuser.objects.get(am_id=request.session['am_id'])
+	pythoncom.CoInitialize()
+	myTrade.logIn(m.am_id,m.am_pass)
+	for share in shareList:
+		price =myTrade.getNowStockPrc(share.code)[0] #return (price, cgdgree)
+		priceDict[share.code]=price
 	#t8430의 reprice가 현재값을 나타내고 있다면 해당 값으로 확인 아니라도 해당 TR로 구현
 
 	#3. #2에서의 정보를 context에 삽입후 analysis.html에 띄우기
+	context['shareList']=shareList
+	context['priceDict']=priceDict
+	context['analysis_type']=analysisType
 	return render(request, 'analysis.html', context)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
