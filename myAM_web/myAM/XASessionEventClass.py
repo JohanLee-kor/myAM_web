@@ -9,7 +9,8 @@ class XASessionEvents:
             XASessionEvents.logInState = 1
             
     def OnLogout(self):
+        # XASessionEvents.logInState=0
         print("OnLogout method is called")
 
-    def OnDisconnect(self):
+    def OnDisconnectServer(self):
         print("OnDisconnect method is called")

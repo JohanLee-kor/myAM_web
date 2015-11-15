@@ -19,6 +19,7 @@ class Trade:
         self.myStockList = {}
         self.stockFirstTrDateDict = {}
         self.myStockAcnt = account
+        self.inXASession = win32com.client.DispatchWithEvents("XA_Session.XASession", XASessionEvents)
         #self.inXAQuery = win32com.client.DispatchWithEvents("XA_DataSet.XAQuery", XAQueryEvents)
         
     def logIn(self, u_id, u_pass):
@@ -26,14 +27,26 @@ class Trade:
 
         self.user=AMuser.objects.get(am_id = u_id,am_pass= u_pass)
 
-        inXASession = win32com.client.DispatchWithEvents("XA_Session.XASession", XASessionEvents)
-        inXASession.ConnectServer(xing.server_addr, xing.server_port)
-        inXASession.Login(self.user.xing_id, self.user.xing_pass, self.user.xing_certificate_pass, xing.server_type, 0)
+        # inXASession = win32com.client.DispatchWithEvents("XA_Session.XASession", XASessionEvents)
+        self.inXASession.ConnectServer(xing.server_addr, xing.server_port)
+        self.inXASession.Login(self.user.xing_id, self.user.xing_pass, self.user.xing_certificate_pass, xing.server_type, 0)
 
         while XASessionEvents.logInState == 0:
             pythoncom.PumpWaitingMessages()
             
         print("Log in Success")
+
+    def logOut(self):
+        # inXASession = win32com.client.DispatchWithEvents("XA_Session.XASession", XASessionEvents)
+        self.inXASession.DisconnectServer()
+        self.inXASession.Logout()
+
+        XASessionEvents.logInState = 0
+
+        # while XASessionEvents.logInState == 1:
+        #     pythoncom.PumpWaitingMessages()
+
+        print("Log out Success")
         
     def buy(self,myCompany, buy_qty):
         #It makes Xing API buy some stocks a specific of company
@@ -315,9 +328,10 @@ class Trade:
 
     def getNowStockPrc(self, code):
         print("get a stock price on now time")
+        print("code", code)
         inXAQuery = win32com.client.DispatchWithEvents("XA_DataSet.XAQuery", XAQueryEvents)
         inXAQuery.LoadFromResFile("C:\\eBEST\\xingAPI\\Res\\t1102.res")
-        inXAQuery.SetFieldData('t1102InBlock', 'shcode', 0, code)
+        inXAQuery.SetFieldData('t1102InBlock', 'shcode', 0, code.strip())
 
         inXAQuery.Request(False)
         while XAQueryEvents.queryState == 0:

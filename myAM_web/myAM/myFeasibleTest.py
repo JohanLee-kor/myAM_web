@@ -11,6 +11,15 @@ if __name__=="__main__":
     print("my orderable money: %s"%(myAcnt.mnyOrdAbleAmt))
     res = myTrade.getStockMarketInfo('301')
     print(res['hname'])
+    res = myTrade.getNowStockPrc('214390')
+    print(res[0])
+
+    myTrade.logOut()
+
+    myTrade.logIn('YJP_AM','qkrdPwl!eoqkr@')
+
+    res = myTrade.getStockMarketInfo('301')
+    print(res['hname'])
     # myAcnt.updateInfo(10000, 100, 1)
     # print("my orderable money: %s"%(myAcnt.mnyOrdAbleAmt))
 
