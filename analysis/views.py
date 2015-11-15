@@ -7,6 +7,7 @@ from datetime import timedelta, timezone, datetime
 
 from .models import Share, AMuser
 import pythoncom
+import time
 # Create your views here.
 def main(request):
 	context={}
@@ -24,15 +25,17 @@ def main(request):
 	# #COSPI: 001, COSDAQ: 301
 	# myTrade = request.session.get['myTrade',False]
 	myAcnt = Account()
+	pythoncom.CoInitialize()
 	myTrade = Trade(myAcnt)
 	if myTrade is False:
 		return HttpResponse("myTrade session is over")
 
 	m = AMuser.objects.get(am_id=request.session['am_id'])
-	pythoncom.CoInitialize()
+
 	myTrade.logIn(m.am_id,m.am_pass)
 	cospiInfo = myTrade.getStockMarketInfo('001')#COSPI
 	cosdaqInfo = myTrade.getStockMarketInfo('301')#COSDAQ
+	myTrade.logOut()
 
 	# 3. 위의 정보들을 context에 삽입후 main.html에 띄우기 
 	context['shareList']=shareList
@@ -56,18 +59,20 @@ def analysisShare(request, analysisType):#analysis_type 0: R3I, 1: R10T, 2: BOX
 	# daysDict={}
 	m = AMuser.objects.get(am_id=request.session['am_id'])
 	myAcnt = Account()
+	pythoncom.CoInitialize()
 	myTrade = Trade(myAcnt)
 	if myTrade is False:
 		return HttpResponse("myTrade session is over")
 
-	pythoncom.CoInitialize()
-	# myTrade.logIn(m.am_id,m.am_pass)
+	# pythoncom.CoInitialize()
+	myTrade.logIn(m.am_id,m.am_pass)
 	for share in shareList:
 		print(share.code)
-		price =myTrade.getNowStockPrc('214390') #return (price, cgdgree)
-		print("price", price[0])
-		priceDict[share.code]=price
-	# myTrade.logOut()
+		time.sleep(0.1)
+		price =myTrade.getNowStockPrc(share.code) #return (price, cgdgree)
+		# print("price", price[0])
+		priceDict[share.code]=price[0]
+	myTrade.logOut()
 	#t8430의 reprice가 현재값을 나타내고 있다면 해당 값으로 확인 아니라도 해당 TR로 구현
 
 	#3. #2에서의 정보를 context에 삽입후 analysis.html에 띄우기

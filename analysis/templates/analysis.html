@@ -14,7 +14,7 @@
 	<td>도출 날자: {{share.drv_date}}</td>
 	<td>도출 이후 : {{share.getDays}}</td>
 	<td>현재가{{priceDict|get:share.code}}</td>
-	<td>도출 이후: {{share|days}}
+	<td>차이 : {{priceDict|getDiff:share}}
 </tr>
 {%endfor %}
 </table>
