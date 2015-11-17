@@ -4,8 +4,77 @@
 {% block content %}
 <h1>This is Main page</h1>
 <table>
+	<caption>{{cospi.hname}}</caption>
+	<thead>
+		<tr>
+			<th>종합지수</th>
+			<th>전일지수</th>
+			<th>추세</th>
+			<th>차이</th>
+			<th>지수차이</th>
+			<th>총거래량</th>
+			<th>전일거래량</th>
+			<th>거래량변화량</th>
+			<th>거래량증감률</th>
+		</tr>
+	</thead>
+	<tr>
+		<td>{{cospi.pricejisu}}</td>
+		<td>{{cospi.jniljisu}}</td>
+		<td>{{cospi.sign}}</td>
+		<td>{{cospi.change}}</td>
+		<td>{{cospi.diffjisu}}</td>
+		<td>{{cospi.volume}}</td>
+		<td>{{cospi.jnilvolume}}</td>
+		<td>{{cospi.volumechange}}</td>
+		<td>{{cospi.volumerate}}</td>
+	</tr>
+
+</table>
+
+<table>
+	<caption>{{cospi.hname}}</caption>
+	<thead>
+		<tr>
+			<th>종합지수</th>
+			<th>전일지수</th>
+			<th>추세</th>
+			<th>차이</th>
+			<th>지수차이</th>
+			<th>총거래량</th>
+			<th>전일거래량</th>
+			<th>거래량변화량</th>
+			<th>거래량증감률</th>
+		</tr>
+	</thead>
+	<tr>
+		<td>{{cospi.pricejisu}}</td>
+		<td>{{cospi.jniljisu}}</td>
+		<td>{{cospi.sign}}</td>
+		<td>{{cospi.change}}</td>
+		<td>{{cospi.diffjisu}}</td>
+		<td>{{cospi.volume}}</td>
+		<td>{{cospi.jnilvolume}}</td>
+		<td>{{cospi.volumechange}}</td>
+		<td>{{cospi.volumerate}}</td>
+	</tr>
+
+</table>
+
+<table>
+	<caption>Candidate stocks Recent 3 days </caption>
+	<thead>
+		<tr>
+			<th>TYPE</th>
+			<th>NAME</th>
+			<th>CODE</th>
+			<th>INIT PRICE</th>
+			<th>INIT DATE</th>
+		</tr>
+	</thead>
 {% for share in shareList %}
 <tr>
+	<td>{{share.analysis_type}}</td>
 	<td>{{share.name}}</td>
 	<td>{{share.code}}</td>
 	<td>{{share.init_price}}</td>
@@ -13,5 +82,5 @@
 </tr>
 {%endfor %}
 </table>
-<h2>{{cospi.hname}}</h2>
+
 {% endblock %}
