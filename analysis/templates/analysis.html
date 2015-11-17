@@ -6,15 +6,26 @@
 {% block content %}
 <h1>This is {{analysis_type}}analysis page</h1>
 <table>
+	 <thead>
+        <tr>
+            <th>NAME</th>
+            <th>CODE</th>
+            <th>INIT PRICE</th>
+            <th>INIT DATE</th>
+            <th>DAYS</th>
+            <th>CUR PRICE</th>
+            <th>DIFF</th>
+        </tr>
+    </thead>
 {% for share in shareList %}
 <tr>
 	<td>{{share.name}}</td>
 	<td>{{share.code}}</td>
-	<td>초기가: {{share.init_price}}</td>
-	<td>도출 날자: {{share.drv_date}}</td>
-	<td>도출 이후 : {{share.getDays}}</td>
-	<td>현재가{{priceDict|get:share.code}}</td>
-	<td>차이 : {{priceDict|getDiff:share}}
+	<td>{{share.init_price}}</td>
+	<td>{{share.drv_date}}</td>
+	<td>{{share.getDays}}</td>
+	<td>{{priceDict|get:share.code}}</td>
+	<td>{{priceDict|getDiff:share}}</td>
 </tr>
 {%endfor %}
 </table>
