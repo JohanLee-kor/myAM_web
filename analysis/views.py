@@ -40,7 +40,7 @@ def main(request):
 
 	# 3. 위의 정보들을 context에 삽입후 main.html에 띄우기 
 	context['shareList']=shareList
-	context['cospi']=cosdaqInfo
+	context['cospi']=cospiInfo
 	context['cosdaq']=cosdaqInfo
 
 	return render(request, 'main.html',context)
