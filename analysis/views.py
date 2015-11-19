@@ -85,9 +85,10 @@ def analysisShare(request, analysisType):#analysis_type 0: R3I, 1: R10T, 2: BOX
 
 def deleteShare(request):
 	context={}
-	delShares = request.POST['delete']
+	delShares = request.POST.getlist('delete')
 	for share in delShares:
 		print(share)
+	return HttpResponse("share result")
 
 
 

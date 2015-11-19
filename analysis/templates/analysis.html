@@ -5,7 +5,7 @@
 {% endblock %}
 {% block content %}
 <h1>This is {{analysis_type}}analysis page</h1>
-<form method="post" action="{%url 'delete%}">
+<form method="post" action="{%url 'delete'%}">
     {%csrf_token%}
 <table>
 	 <thead>
@@ -29,9 +29,10 @@
 	<td>{{share.getDays}}</td>
 	<td>{{priceDict|get:share.code}}</td>
 	<td>{{priceDict|getDiff:share}}</td>
-    <td><input type="checkbox" name="delete" value="{{share.code}}"></td>
+    <td><input type="checkbox" name="delete" value={{share.code}}></td>
 </tr>
 {%endfor %}
 </table>
+<input type="submit" value="Delete">
 </form>
 {% endblock %}
