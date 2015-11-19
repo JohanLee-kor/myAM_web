@@ -83,6 +83,13 @@ def analysisShare(request, analysisType):#analysis_type 0: R3I, 1: R10T, 2: BOX
 	context['analysis_type']=analysisType
 	return render(request, 'analysis.html', context)
 
+def deleteShare(request):
+	context={}
+	delShares = request.POST['delete']
+	for share in delShares:
+		print(share)
+
+
 
 
 
