@@ -37,6 +37,7 @@ def main(request):
 	cosdaqInfo = myTrade.getStockMarketInfo('301')#COSDAQ
 	myTrade.logOut()
 	del myTrade
+	pythoncom.CoUninitialize()
 
 	# 3. 위의 정보들을 context에 삽입후 main.html에 띄우기 
 	context['shareList']=shareList
@@ -75,6 +76,7 @@ def analysisShare(request, analysisType):#analysis_type 0: R3I, 1: R10T, 2: BOX
 		priceDict[share.code]=price[0]
 	myTrade.logOut()
 	del myTrade
+	pythoncom.CoUninitialize()
 	#t8430의 reprice가 현재값을 나타내고 있다면 해당 값으로 확인 아니라도 해당 TR로 구현
 
 	#3. #2에서의 정보를 context에 삽입후 analysis.html에 띄우기
