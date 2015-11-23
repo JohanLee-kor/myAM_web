@@ -1,7 +1,11 @@
 {% extends "base.html" %}
 {% load extras %}
 {% block sidebar %}
-
+<ul>
+	<li><a href="{% url 'main' %}">MAIN</a></li>
+	<li><a href="/analysis/R3I">R3I</a></li>
+	<li><a href="/analysis/R10T">R10T</a></li>
+</ul>
 {% endblock %}
 {% block content %}
 <h1>This is {{analysis_type}}analysis page</h1>

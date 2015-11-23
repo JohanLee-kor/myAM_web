@@ -37,7 +37,7 @@ class Trade:
         print("Log in Success")
 
     def logOut(self):
-        # inXASession = win32com.client.DispatchWithEvents("XA_Session.XASession", XASessionEvents)
+        inXASession = win32com.client.DispatchWithEvents("XA_Session.XASession", XASessionEvents)
         inXASession.DisconnectServer()
         inXASession.Logout()
 
