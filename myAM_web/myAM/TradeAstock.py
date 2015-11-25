@@ -338,6 +338,7 @@ class Trade:
             pythoncom.PumpWaitingMessages()
 
         if XAQueryEvents.querySuccess < 0 : #Error occured at Xing server
+            XAQueryEvents.querySuccess = 0
             return(-1, -1)
 
         XAQueryEvents.queryState = 0
