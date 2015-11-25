@@ -93,7 +93,8 @@ def deleteShare(request):
 	# for share in delShares:
 	# 	# print(share)
 	# 	Share.objects.get(code=share).delete()
-	return HttpResponse("share result")
+	# return HttpResponse("share result")
+	return HttpResponseRedirect(request.META['HTTP_REFERER'])
 
 
 
