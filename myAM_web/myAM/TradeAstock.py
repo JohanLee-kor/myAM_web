@@ -334,10 +334,14 @@ class Trade:
         inXAQuery.SetFieldData('t1102InBlock', 'shcode', 0, code.strip())
 
         inXAQuery.Request(False)
-        while XAQueryEvents.queryState == 0:
+        while XAQueryEvents.queryState == 0 and XAQueryEvents.querySuccess==0:
             pythoncom.PumpWaitingMessages()
 
+        if XAQueryEvents.querySuccess < 0 : #Error occured at Xing server
+            return(-1, -1)
+
         XAQueryEvents.queryState = 0
+        XAQueryEvents.querySuccess = 0
 
         # Get FieldData
         price = float(inXAQuery.GetFieldData('t1102OutBlock', 'price', 0))
@@ -360,10 +364,14 @@ class Trade:
         inXAQuery.SetFieldData('t1511InBlock', 'upcode', 0, upcode)#COSPI: 001, COSDAQ: 301
 
         inXAQuery.Request(False)
-        while XAQueryEvents.queryState == 0:
+        while XAQueryEvents.queryState == 0 and XAQueryEvents.querySuccess==0:
             pythoncom.PumpWaitingMessages()
 
+        if XAQueryEvents.querySuccess < 0 : #Error occured from Xing server
+            pass
+
         XAQueryEvents.queryState = 0
+        XAQueryEvents.querySuccess = 0
 
         # Get FieldData
         gubun = inXAQuery.GetFieldData('t1511OutBlock', 'gubun', 0)
