@@ -88,8 +88,11 @@ def analysisShare(request, analysisType):#analysis_type 0: R3I, 1: R10T, 2: BOX
 def deleteShare(request):
 	context={}
 	delShares = request.POST.getlist('delete')
-	for share in delShares:
-		print(share)
+	fromPage = request.META['HTTP_REFERER']
+	print('fromPage',fromPage)
+	# for share in delShares:
+	# 	# print(share)
+	# 	Share.objects.get(code=share).delete()
 	return HttpResponse("share result")
 
 
