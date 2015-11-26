@@ -8,7 +8,7 @@ class Share(models.Model):
 	name = models.CharField(max_length=50) #name of stock
 	code = models.CharField(max_length=10) #code os stock
 	init_price = models.IntegerField(default=0)#initial price of stock derived from analysis algorithm
-	#now_price = models.IntegerField(default=0)#now price of stock
+	now_price = models.IntegerField(default=0)#now price of stock
 	drv_date = models.DateTimeField('date derived',auto_now = True)#date derived from analysis algorithm
 
 	def __str__(self):
@@ -16,8 +16,8 @@ class Share(models.Model):
 
 	def getDays(self):
 		return (datetime.now(timezone.utc)-self.drv_date).days
-	def getDiffPrc(self, price):
-		return int(price-self.init_price)
+	def getDiffPrc(self):
+		return int(self.now_price-self.init_price)
 		
 class AMuser(models.Model):
 	"""This class a model means my Asset Manager user"""
