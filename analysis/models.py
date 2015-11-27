@@ -28,3 +28,17 @@ class AMuser(models.Model):
 	xing_id = models.CharField(max_length=10)
 	xing_pass = models.CharField(max_length=8)
 	xing_certificate_pass = models.CharField(max_length=10)
+
+class StockMarket(models.Model):
+	'''This class is a model means stock marget information'''
+	market_name = models.CharField(max_length=20)#hname
+	now_index = models.IntegerField(default=0)#pricejisu
+	pre_index = models.IntegerField(default=0)#jniljisu
+	sign =  models.IntegerField(default=-1)#sign
+	change = models.IntegerField(default=-1)#change
+	diff_index = models.IntegerField(default=-1)#diffjisu
+	volume = models.IntegerField(default=-1)##volume
+	pre_volume = models.IntegerField(default=-1)#jnilvolume
+	volumechage = models.IntegerField(default=-1)#volumechange
+	volumerate = models.IntegerField(default=-1)#volumerate
+	market_date = models.DateTimeField(auto_now=True)

@@ -33,3 +33,4 @@ if __name__=="__main__":
 				price = myTrade.getNowStockPrc(share.code)[0]
 				share.now_price = price
 				share.save()
+				

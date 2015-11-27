@@ -15,12 +15,6 @@ def login(request):
 	m = AMuser.objects.get(am_id=(request.POST['ID']).strip())
 	if m.am_pass == request.POST['PW']:
 		request.session['am_id'] = m.am_id
-		# myAcnt = Account()
-		# myTrade = Trade(myAcnt)
-		# pythoncom.CoInitialize()
-		# myTrade.logIn(m.am_id,m.am_pass)
-		
-		# request.session['myTrade']=myTrade
 		return HttpResponseRedirect(reverse('main'))
 	else:
 		return HttpResponse("Your username and password didn't match.")
