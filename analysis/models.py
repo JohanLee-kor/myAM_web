@@ -29,16 +29,17 @@ class AMuser(models.Model):
 	xing_pass = models.CharField(max_length=8)
 	xing_certificate_pass = models.CharField(max_length=10)
 
-class StockMarket(models.Model):
+class StockMarket(models.Model):#COSPI: 001, COSDAQ: 301
 	'''This class is a model means stock marget information'''
-	market_name = models.CharField(max_length=20)#hname
-	now_index = models.IntegerField(default=0)#pricejisu
-	pre_index = models.IntegerField(default=0)#jniljisu
+	gubun = models.CharField(max_length=1)#gubun
+	hname = models.CharField(max_length=20)#hname
+	pricejisu = models.IntegerField(default=0)#pricejisu
+	jniljisu = models.IntegerField(default=0)#jniljisu
 	sign =  models.IntegerField(default=-1)#sign
 	change = models.IntegerField(default=-1)#change
-	diff_index = models.IntegerField(default=-1)#diffjisu
+	diffjisu = models.IntegerField(default=-1)#diffjisu
 	volume = models.IntegerField(default=-1)##volume
-	pre_volume = models.IntegerField(default=-1)#jnilvolume
+	jnilvolume = models.IntegerField(default=-1)#jnilvolume
 	volumechage = models.IntegerField(default=-1)#volumechange
 	volumerate = models.IntegerField(default=-1)#volumerate
 	market_date = models.DateTimeField(auto_now=True)
