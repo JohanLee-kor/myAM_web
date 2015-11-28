@@ -3,23 +3,34 @@ from account import Account
 from company import Company
 import time
 
+import copy
+import os
+
+os.environ['DJANGO_SETTINGS_MODULE'] = 'myAM_web.settings'
+
+from analysis.models import Share, StockMarket
+from datetime import datetime, timezone
+
 if __name__=="__main__":
     myAcnt = Account()
     myTrade = Trade(myAcnt)
     myTrade.logIn('YJP_AM','qkrdPwl!eoqkr@')
-    myTrade.getMyStockAcntInfo()
-    print("my orderable money: %s"%(myAcnt.mnyOrdAbleAmt))
-    res = myTrade.getStockMarketInfo('301')
-    print(res['hname'])
-    res = myTrade.getNowStockPrc('214390')
-    print(res[0])
+    # myTrade.getMyStockAcntInfo()
+    # print("my orderable money: %s"%(myAcnt.mnyOrdAbleAmt))
+    cospiInfo = myTrade.getStockMarketInfo('001')
+    print(cospiInfo['hname'])
+    print(cospiInfo['gubun'])
+    cospiInfo['hname']='johan'
 
-    myTrade.logOut()
+    # myTrade.logOut()
 
-    myTrade.logIn('YJP_AM','qkrdPwl!eoqkr@')
+    # myTrade.logIn('YJP_AM','qkrdPwl!eoqkr@')
+    # s=StockMarket(gubun='0')#1: cospi, 2: cosdaq
 
-    res = myTrade.getStockMarketInfo('301')
-    print(res['hname'])
+    today=datetime.now(timezone.utc)
+
+    StockMarket.objects.update_or_create(gubun='1', market_date__year=today.year,
+                    market_date__month=today.month, market_date__day=today.day,defaults=cospiInfo )
     # myAcnt.updateInfo(10000, 100, 1)
     # print("my orderable money: %s"%(myAcnt.mnyOrdAbleAmt))
 
