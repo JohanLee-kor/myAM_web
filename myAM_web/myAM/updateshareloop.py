@@ -35,10 +35,10 @@ if __name__=="__main__":
 			#market_type '1' : COSPI, '2' : COSDAQ
 
 			StockMarket.objects.update_or_create(gubun='1', market_date__year=today.year,
-									market_date__month=today.month, market_date__day=today.day,default=cospiInfo )
+					market_date__month=today.month, market_date__day=today.day,defaults=cospiInfo )
 
 			StockMarket.objects.update_or_create(gubun='2', market_date__year=today.year,
-									market_date__month=today.month, market_date__day=today.day,default=cosdaqInfo )
+					market_date__month=today.month, market_date__day=today.day,defaults=cosdaqInfo )
 
 
 			shareList = Share.objects.all()
