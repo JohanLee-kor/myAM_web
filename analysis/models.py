@@ -31,7 +31,7 @@ class AMuser(models.Model):
 
 class StockMarket(models.Model):#COSPI: 001, COSDAQ: 301
 	'''This class is a model means stock marget information'''
-	gubun = models.CharField(max_length=1,default='0')#gubun
+	gubun = models.CharField(max_length=1,default='0')#gubun COSPI : 1, COSDAQ: 2
 	hname = models.CharField(max_length=20)#hname
 	pricejisu = models.IntegerField(default=0)#pricejisu
 	jniljisu = models.IntegerField(default=0)#jniljisu
