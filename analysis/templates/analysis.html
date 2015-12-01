@@ -9,7 +9,7 @@
 </ul>
 {% endblock %}
 {% block content %}
-<h1>This is {{analysis_type}}analysis page</h1>
+<h1>This is {{analysis_type}} analysis page</h1>
 <form method="post" action="{%url 'delete'%}">
     {%csrf_token%}
 <table>
@@ -32,12 +32,13 @@
 	<td>{{share.init_price}}</td>
 	<td>{{share.drv_date}}</td>
 	<td>{{share.getDays}}</td>
-	<td>{{priceDict|get:share.code}}</td>
-	<td>{{priceDict|getDiff:share}}</td>
+	<td>{{share.now_price}}</td>
+	<td>{{share.getDiffPrc}}</td>
     <td><input type="checkbox" name="delete" value={{share.code}}></td>
 </tr>
 {%endfor %}
 </table>
+<input type="hidden" name="type" value={{analysis_type}}>
 <input type="submit" value="Delete">
 </form>
 {% endblock %}

@@ -40,6 +40,6 @@ class StockMarket(models.Model):#COSPI: 001, COSDAQ: 301
 	diffjisu = models.IntegerField(default=-1)#diffjisu
 	volume = models.IntegerField(default=-1)##volume
 	jnilvolume = models.IntegerField(default=-1)#jnilvolume
-	volumechage = models.IntegerField(default=-1)#volumechange
+	volumechange = models.IntegerField(default=-1)#volumechange
 	volumerate = models.IntegerField(default=-1)#volumerate
 	market_date = models.DateTimeField(auto_now=True)

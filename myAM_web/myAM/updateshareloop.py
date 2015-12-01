@@ -25,10 +25,13 @@ if __name__=="__main__":
 	while(isStop):
 		tStamp = time.localtime()#change to time.time()version
 		if tStamp.tm_hour*60+tStamp.tm_min >= onChour*60:#change to time.time()version
+			print('hour/min', tStamp.tm_hour, tStamp.tm_min)
 			isStop = False
 			print("Stock trade market is closed")
 		else :
 			time.sleep(timeSlice * 60)
+			# time.sleep(3)
+			print('start update')
 			#stock market
 			cospiInfo = myTrade.getStockMarketInfo('001')#get COSPI info
 			cosdaqInfo = myTrade.getStockMarketInfo('301')#get COSPI info

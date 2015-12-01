@@ -29,7 +29,7 @@ if __name__=="__main__":
 
     today=datetime.now(timezone.utc)
 
-    StockMarket.objects.update_or_create(gubun='1', market_date__year=today.year,
+    StockMarket.objects.update_or_create(gubun='0', market_date__year=today.year,
                     market_date__month=today.month, market_date__day=today.day,defaults=cospiInfo )
     # myAcnt.updateInfo(10000, 100, 1)
     # print("my orderable money: %s"%(myAcnt.mnyOrdAbleAmt))

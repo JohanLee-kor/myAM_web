@@ -8,7 +8,7 @@
 {% block content %}
 <h1>This is Main page</h1>
 <table>
-	<caption>{{cospi.hname}}</caption>
+	<caption>COSPI</caption>
 	<thead>
 		<tr>
 			<th>종합지수</th>
@@ -22,22 +22,24 @@
 			<th>거래량증감률</th>
 		</tr>
 	</thead>
+	{% for share in cospi %}
 	<tr>
-		<td>{{cospi.pricejisu}}</td>
-		<td>{{cospi.jniljisu}}</td>
-		<td>{{cospi.sign}}</td>
-		<td>{{cospi.change}}</td>
-		<td>{{cospi.diffjisu}}</td>
-		<td>{{cospi.volume}}</td>
-		<td>{{cospi.jnilvolume}}</td>
-		<td>{{cospi.volumechange}}</td>
-		<td>{{cospi.volumerate}}</td>
+		<td>{{share.pricejisu}}</td>
+		<td>{{share.jniljisu}}</td>
+		<td>{{share.sign}}</td>
+		<td>{{share.change}}</td>
+		<td>{{share.diffjisu}}</td>
+		<td>{{share.volume}}</td>
+		<td>{{share.jnilvolume}}</td>
+		<td>{{share.volumechange}}</td>
+		<td>{{share.volumerate}}</td>
 	</tr>
+	{%endfor%}
 
 </table>
 
 <table>
-	<caption>{{cosdaq.hname}}</caption>
+	<caption>COSDAQ</caption>
 	<thead>
 		<tr>
 			<th>종합지수</th>
@@ -51,17 +53,19 @@
 			<th>거래량증감률</th>
 		</tr>
 	</thead>
+	{% for share in cosdaq %}
 	<tr>
-		<td>{{cosdaq.pricejisu}}</td>
-		<td>{{cosdaq.jniljisu}}</td>
-		<td>{{cosdaq.sign}}</td>
-		<td>{{cosdaq.change}}</td>
-		<td>{{cosdaq.diffjisu}}</td>
-		<td>{{cosdaq.volume}}</td>
-		<td>{{cosdaq.jnilvolume}}</td>
-		<td>{{cosdaq.volumechange}}</td>
-		<td>{{cosdaq.volumerate}}</td>
+		<td>{{share.pricejisu}}</td>
+		<td>{{share.jniljisu}}</td>
+		<td>{{share.sign}}</td>
+		<td>{{share.change}}</td>
+		<td>{{share.diffjisu}}</td>
+		<td>{{share.volume}}</td>
+		<td>{{share.jnilvolume}}</td>
+		<td>{{share.volumechange}}</td>
+		<td>{{share.volumerate}}</td>
 	</tr>
+	{%endfor%}
 
 </table>
 
@@ -72,7 +76,10 @@
 			<th>TYPE</th>
 			<th>NAME</th>
 			<th>CODE</th>
+			<th>DAYS</th>
 			<th>INIT PRICE</th>
+			<th>NOW PRICE</th>
+			<th>DIFF</th>
 			<th>INIT DATE</th>
 		</tr>
 	</thead>
@@ -81,7 +88,10 @@
 	<td>{{share.analysis_type}}</td>
 	<td>{{share.name}}</td>
 	<td>{{share.code}}</td>
+	<td>{{share.getDays}}</td>
 	<td>{{share.init_price}}</td>
+	<td>{{share.now_price}}</td>
+	<td>{{share.getDiffPrc}}</td>
 	<td>{{share.drv_date}}</td>
 </tr>
 {%endfor %}
