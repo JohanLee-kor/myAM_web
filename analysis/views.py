@@ -54,7 +54,6 @@ def deleteShare(request):
 	delShares = request.POST.getlist('delete')
 	share_type=request.POST.get('type',False)
 	fromPage = request.META['HTTP_REFERER']
-	print('fromPage',fromPage)
 	for share in delShares:
 		Share.objects.get(code=share,analysis_type=share_type).delete()
 	return HttpResponseRedirect(request.META['HTTP_REFERER'])
