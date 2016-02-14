@@ -29,6 +29,9 @@ class AMuser(models.Model):
 	xing_pass = models.CharField(max_length=8)
 	xing_certificate_pass = models.CharField(max_length=10)
 
+	def __str__():
+		return "Acnt_number:%s, Acnt_pw: %s, xing_id: %s, xing_pass: %s, xing_certificate_pass: %s"%(self.account_number, self.account_pw, self.xing_id, self.xing_pass, self.xing_certificate_pass)
+
 class StockMarket(models.Model):#COSPI: 001, COSDAQ: 301
 	'''This class is a model means stock marget information'''
 	gubun = models.CharField(max_length=1,default='0')#gubun COSPI : 1, COSDAQ: 2
