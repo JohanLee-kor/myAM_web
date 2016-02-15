@@ -14,7 +14,7 @@ from datetime import datetime, timezone
 if __name__=="__main__":
     myAcnt = Account()
     myTrade = Trade(myAcnt)
-    myTrade.logIn('YJP_AM','qkrdPwl!eoqkr@')
+    myTrade.logIn('johan','dlskdud79')
     # myTrade.getMyStockAcntInfo()
     # print("my orderable money: %s"%(myAcnt.mnyOrdAbleAmt))
     cospiInfo = myTrade.getStockMarketInfo('001')
@@ -27,12 +27,12 @@ if __name__=="__main__":
     # myTrade.logIn('YJP_AM','qkrdPwl!eoqkr@')
     # s=StockMarket(gubun='0')#1: cospi, 2: cosdaq
 
-    today=datetime.now(timezone.utc)
+    #today=datetime.now(timezone.utc)
 
-    StockMarket.objects.update_or_create(gubun='0', market_date__year=today.year,
-                    market_date__month=today.month, market_date__day=today.day,defaults=cospiInfo )
+    #StockMarket.objects.update_or_create(gubun='0', market_date__year=today.year,
+    #               market_date__month=today.month, market_date__day=today.day,defaults=cospiInfo )
     # myAcnt.updateInfo(10000, 100, 1)
-    # print("my orderable money: %s"%(myAcnt.mnyOrdAbleAmt))
+    print("my orderable money: %s"%(myAcnt.mnyOrdAbleAmt))
 
     #myAsset=0
     #myRsset=0
