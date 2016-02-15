@@ -10,7 +10,7 @@ from analysis.models import Share # code to TEST DB
 if __name__=="__main__":
     myAcnt = Account()
     myTrade = Trade(myAcnt)
-    myTrade.logIn('YJP_AM','qkrdPwl!eoqkr@')
+    myTrade.logIn('johan','dlskdud79')
     # myTrade.getMyStockAcntInfo()
 
     shareList = myTrade.get3CandidateShareList()

@@ -15,7 +15,7 @@ if __name__=="__main__":
     #Log in to Xing server
 	myAcnt = Account()
 	myTrade = Trade(myAcnt)
-	myTrade.logIn('YJP_AM','qkrdPwl!eoqkr@')
+	myTrade.logIn('johan','dlskdud79')
 
 	isStop=True
 	timeSlice=2#monitor on 10 minutes
