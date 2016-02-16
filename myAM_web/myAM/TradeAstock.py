@@ -835,7 +835,7 @@ class Trade:
         # Distinguish stocks to buy stocks which is going up during 10 days.
         #--------------------------------------------------------------------
         nCount = XAQuery.GetBlockCount('t1305OutBlock1')
-        upLmtdiff = 10.0
+        upLmtdiff = 15.0
             
         if nCount < 10:
             return False
@@ -844,7 +844,7 @@ class Trade:
 
         for i in range(10):
             diff = float(XAQuery.GetFieldData('t1305OutBlock1', 'diff', i))
-            if (i is 1 and diff <= 0) or diff < -13 or diff > 13 :
+            if (i is 1 and diff <= 0) or diff < -5 or diff > 5 :
             #20 : #If down growth is break on the day before or diff value is bigger than 20 or smaller than -20
                 total_diff = -1
                 break
