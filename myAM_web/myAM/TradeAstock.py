@@ -878,7 +878,7 @@ class Trade:
             price = int(XAQuery.GetFieldData('t1305OutBlock1', 'close',i))
             diff = float(XAQuery.GetFieldData('t1305OutBlock1', 'diff', i))
             total_diff +=diff
-            if price <= stdPrice_month and diff > 0 and diff <= 10:
+            if price <= stdPrice_month and diff > 0 and diff <= 5:
                 pass
             else:
                 flag = False
