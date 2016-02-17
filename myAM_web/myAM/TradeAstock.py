@@ -844,7 +844,7 @@ class Trade:
 
         for i in range(10):
             diff = float(XAQuery.GetFieldData('t1305OutBlock1', 'diff', i))
-            if (i is 1 and diff <= 0) or diff < -5 or diff > 5 :
+            if (i is 1 and diff <= 0) or diff < -10 or diff > 10 :
             #20 : #If down growth is break on the day before or diff value is bigger than 20 or smaller than -20
                 total_diff = -1
                 break
@@ -873,12 +873,13 @@ class Trade:
             price_month.append(int(XAQuery.GetFieldData('t1305OutBlock1', 'close',i)))
 
         stdPrice_month = int(max(price_month)*0.8)
+        lmtPrice_month = int(max(price_month)*0.6)
 
         for i in reversed(range(gap)):
             price = int(XAQuery.GetFieldData('t1305OutBlock1', 'close',i))
             diff = float(XAQuery.GetFieldData('t1305OutBlock1', 'diff', i))
             total_diff +=diff
-            if price <= stdPrice_month and diff > 0 and diff <= 5:
+            if price <= stdPrice_month and price >= lmtPrice_month and diff > 0 and diff <= 5:
                 pass
             else:
                 flag = False
