@@ -16,9 +16,9 @@ def main(request):
 	if isLogin is False:
 		return HttpResponseRedirect(reverse('home'))
 
-	# 1. 디비에 접근하여서  최근일자(3일간)의 후보 주식들 갖고오기
+	# 1. 디비에 접근하여서  최근일자(10일간)의 후보 주식들 갖고오기
 	now = datetime.now(timezone.utc)
-	srt = now-timedelta(days=3)
+	srt = now-timedelta(days=10)
 	shareList = Share.objects.filter(drv_date__range=(srt,now))
 	
 	# 2.  COSPI, COSDAQ 정보 가져오기
