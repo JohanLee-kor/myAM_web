@@ -20,7 +20,8 @@ if __name__=="__main__":
 	isStop=True
 	timeSlice=2#monitor on 2 minutes
 	onChour = 15 #time to close market(14 hour)
-	today=datetime.now(timezone.utc)
+	# today=datetime.now(timezone.utc)
+	today=datetime.now()
     
 	while(isStop):
 		tStamp = time.localtime()#change to time.time()version
