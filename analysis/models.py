@@ -20,8 +20,8 @@ class Share(models.Model):
 		return "%s, %s, %s, %s, %s, %s"%(self.analysis_type, self.name, self.code, self.init_price,self.now_price, self.drv_date)
 
 	def getDays(self):
-		# return (datetime.now(timezone.utc)-self.drv_date).days
-		return (datetime.now()-self.drv_date).days
+		return (datetime.now(timezone.utc)-self.drv_date).days
+		# return (datetime.now()-self.drv_date).days
 	def getDiffPrc(self):
 		return int(self.now_price-self.init_price)
 		
