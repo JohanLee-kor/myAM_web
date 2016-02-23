@@ -9,13 +9,18 @@ class Share(models.Model):
 	code = models.CharField(max_length=10) #code os stock
 	init_price = models.IntegerField(default=0)#initial price of stock derived from analysis algorithm
 	now_price = models.IntegerField(default=0)#now price of stock
-	drv_date = models.DateTimeField('date derived',auto_now = True)#date derived from analysis algorithm
+	# drv_date = models.DateTimeField('date derived',auto_now = True)#date derived from analysis algorithm
+	drv_date = models.DateTimeField('date derived',auto_now_add=True)
+	#share.save() 를 통해 now_price를 저장 할때마다 drv_date가 갱신됨.. 해당 문제 해결해야함
+	#해결 방법 1. auto_now_add 파라미터를 True로 넘겨서 생성될때만 기억
+	#해결 방법 2. default=timezone.now
 
 	def __str__(self):
 		return "%s, %s, %s, %s, %s, %s"%(self.analysis_type, self.name, self.code, self.init_price,self.now_price, self.drv_date)
 
 	def getDays(self):
-		return (datetime.now(timezone.utc)-self.drv_date).days
+		# return (datetime.now(timezone.utc)-self.drv_date).days
+		return (datetime.now()-self.drv_date).days
 	def getDiffPrc(self):
 		return int(self.now_price-self.init_price)
 		
