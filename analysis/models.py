@@ -22,6 +22,8 @@ class Share(models.Model):
 	def getDays(self):
 		return (datetime.now(timezone.utc)-self.drv_date).days
 		# return (datetime.now()-self.drv_date).days
+	def getDate(self):
+		return self.drv_date+timedelta(hours=9)
 	def getDiffPrc(self):
 		return int(self.now_price-self.init_price)
 		
