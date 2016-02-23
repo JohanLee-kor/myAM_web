@@ -1,5 +1,5 @@
 from django.db import models
-from datetime import datetime, timezone
+from datetime import datetime, timezone, timedelta
 
 # Create your models here.
 class Share(models.Model):
