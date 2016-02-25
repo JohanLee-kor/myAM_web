@@ -49,6 +49,10 @@ def analysisShare(request, analysisType):#analysis_type 0: R3I, 1: R10T, 2: BOX
 	context['analysis_type']=analysisType
 	return render(request, 'analysis.html', context)
 
+def analysisShare2(request):#jQuery로 날짜를 받는 ui를 제공
+	context={}
+	return render(request,'analysis2.html',context)
+
 def deleteShare(request):
 	context={}
 	delShares = request.POST.getlist('delete')

@@ -20,19 +20,9 @@ if __name__=="__main__":
 
     for share in BOX_list:
         Share.objects.get_or_create(analysis_type='BOX', code=share.stockCode, defaults={'init_price':share.initPrice, 'name': share.stockName})
-        # try:
-        #     s = Share.objects.get(analysis_type='BOX', code=share.stockCode)
-        # except Share.DoesNotExist:
-        #     s = Share(analysis_type='BOX', name=share.stockName, code=share.stockCode, init_price=share.initPrice)
-        #     s.save()
 
     for share in R3I_list:
         Share.objects.get_or_create(analysis_type='R3I', code=share.stockCode, defaults={'init_price':share.initPrice, 'name': share.stockName})
-        # try:
-        #     s = Share.objects.get(analysis_type='R3I', code=share.stockCode)
-        # except Share.DoesNotExist:
-        #     s = Share(analysis_type='R3I', name=share.stockName, code=share.stockCode, init_price=share.initPrice)
-        #     s.save()
 
     for share in R10T_list:
         Share.objects.get_or_create(analysis_type='R10T', code=share.stockCode, defaults={'init_price':share.initPrice, 'name': share.stockName})

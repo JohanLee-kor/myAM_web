@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% load extras %}
+{% block inhead %}
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <link rel="stylesheet" href="/resources/demos/style.css">
+    <script>
+  $(function() {
+    $( "#datepicker" ).datepicker({
+      altField: "#alternate",
+      altFormat: "yy-mm-dd"
+    });
+  });
+    </script>
+{% endblock %}
+{% block sidebar %}
+<ul>
+	<li><a href="{% url 'main' %}">MAIN</a></li>
+	<li><a href="/analysis/R3I">R3I</a></li>
+	<li><a href="/analysis/R10T">R10T</a></li>
+            <li><a href="/analysis/BOX">BOX</a></li>
+</ul>
+{% endblock %}
+{% block content %}
+<h1>This is {{analysis_type}} analysis page</h1>
+<p>Date: <input type="text" id="datepicker">&nbsp;<input type="text" id="alternate" size="30"></p>
+<form method="post" action="{%url 'delete'%}">
+    {%csrf_token%}
+<table>
+	 <thead>
+        <tr>
+            <th>NAME</th>
+            <th>CODE</th>
+            <th>INIT PRICE</th>
+            <th>INIT DATE</th>
+            <th>DAYS</th>
+            <th>CUR PRICE</th>
+            <th>DIFF</th>
+            <th>DELETE</th>
+        </tr>
+    </thead>
+{% for share in shareList %}
+<tr>
+	<td>{{share.name}}</td>
+	<td>{{share.code}}</td>
+	<td>{{share.init_price}}</td>
+	<td>{{share.getDate}}</td>
+	<td>{{share.getDays}}</td>
+	<td>{{share.now_price}}</td>
+	<td>{{share.getDiffPrc}}</td>
+    <td><input type="checkbox" name="delete" value={{share.code}}></td>
+</tr>
+{%endfor %}
+</table>
+<input type="hidden" name="type" value={{analysis_type}}>
+<input type="submit" value="Delete">
+</form>
+{% endblock %}
