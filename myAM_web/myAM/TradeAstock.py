@@ -391,7 +391,7 @@ class Trade:
         info['hname'] = hname
         info['pricejisu'] = pricejisu
         info['jniljisu'] = jniljisu
-        info['sign'] = self.attrSwitch('sign',sign)
+        info['sign'] = sign
         info['change'] = change
         info['diffjisu'] = diffjisu
         info['volume'] = volume
@@ -400,11 +400,6 @@ class Trade:
         info['volumerate'] = volumerate
 
         return info
-
-    def attrSwitch(self,attrname, attrcontent):
-        return {
-                        'sign': {1:'상한', 2:'상승', 3:'보합', 4:'하한', 5:'하락'}
-                    }.get(attrname).get(attrcontent)
 
     def getCandidateStocks(self, nCandidates):
         print("request candidate stocks from Xing")

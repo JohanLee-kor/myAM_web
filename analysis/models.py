@@ -54,3 +54,11 @@ class StockMarket(models.Model):#COSPI: 001, COSDAQ: 301
 	volumechange = models.IntegerField(default=-1)#volumechange
 	volumerate = models.IntegerField(default=-1)#volumerate
 	market_date = models.DateTimeField(auto_now=True)
+
+	def getSign(self):
+		return self.attrSwitch('sign',self.sign)
+
+	def attrSwitch(self,attrname, attrcontent):
+		return {
+				'sign': {1:'상한', 2:'상승', 3:'보합', 4:'하한', 5:'하락'}
+			}.get(attrname).get(attrcontent)
