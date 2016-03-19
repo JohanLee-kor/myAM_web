@@ -26,6 +26,8 @@ class Share(models.Model):
 		return self.drv_date+timedelta(hours=9)
 	def getDiffPrc(self):
 		return int(self.now_price-self.init_price)
+	def getPfit(self):
+		return  self.getDiffPrc()-(0.0015*(self.init_price+self.now_price))
 		
 class AMuser(models.Model):
 	"""This class a model means my Asset Manager user"""

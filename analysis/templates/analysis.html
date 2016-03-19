@@ -22,6 +22,7 @@
             <th>DAYS</th>
             <th>CUR PRICE</th>
             <th>DIFF</th>
+            <th>PROFIT</th>
             <th>DELETE</th>
         </tr>
     </thead>
@@ -34,6 +35,7 @@
 	<td>{{share.getDays}}</td>
 	<td>{{share.now_price}}</td>
 	<td>{{share.getDiffPrc}}</td>
+            <td>{{share.getPfit}}</td>
     <td><input type="checkbox" name="delete" value={{share.code}}></td>
 </tr>
 {%endfor %}
