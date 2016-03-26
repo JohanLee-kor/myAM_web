@@ -6,10 +6,17 @@
     <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
     <link rel="stylesheet" href="/resources/demos/style.css">
     <script>
+    function search_by_date(){
+        console.log("entered search_by_date function");
+        alert('after datepicker');
+    };
+
+
   $(function() {
     $( "#datepicker" ).datepicker({
       altField: "#alternate",
       altFormat: "yy-mm-dd"
+      onSelect: search_by_date();
     });
   });
     </script>
