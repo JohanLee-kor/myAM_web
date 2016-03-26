@@ -8,7 +8,21 @@
     <script>
     function search_by_date(dateText,inst){
         console.log("entered search_by_date function");
-        alert(dateText);
+        // alert(dateText);
+        var res = dateText.split("/",3);
+        var month=res[0];
+        var day=res[1];
+        var year=res[2];
+
+        alert(month+' '+day+' '+year);
+
+        // $.ajax({
+        //     url: ,//endpoint
+        //     type: "POST",//http method
+        //     data: {
+        //         YEAR :
+        //     }
+        // });
     };
 
 
