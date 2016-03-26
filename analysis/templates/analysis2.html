@@ -14,15 +14,22 @@
         var day=res[1];
         var year=res[2];
 
-        alert(month+' '+day+' '+year);
-
-        // $.ajax({
-        //     url: ,//endpoint
-        //     type: "POST",//http method
-        //     data: {
-        //         YEAR :
-        //     }
-        // });
+        $.ajax({
+            url: "{%url 'search_by_date'%}",//endpoint
+            type: "POST",//http method
+            data: {
+                select_year: year,
+                select_month: month,
+                select_day: day
+            },
+            //handle a successful response
+            // success : search_by_date_su,
+            success: function(json){
+                alert(json);
+            }
+            //handle a non-successful response
+            // error: search_by_date_unsu
+        });
     };
 
 

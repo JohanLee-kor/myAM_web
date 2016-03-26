@@ -6,8 +6,9 @@ from myAM_web.myAM.account import Account
 from datetime import timedelta, timezone, datetime
 
 from .models import Share, AMuser, StockMarket
-import pythoncom
+# import pythoncom
 import time
+import json
 # Create your views here.
 def main(request):
 	context={}
@@ -52,6 +53,19 @@ def analysisShare(request, analysisType):#analysis_type 0: R3I, 1: R10T, 2: BOX
 def analysisShare2(request):#jQuery로 날짜를 받는 ui를 제공
 	context={}
 	return render(request,'analysis2.html',context)
+
+def search_by_date(request):#AJAX를 사용해서 특정 날짜, 분석 주식의 데이터를 출력
+	if request.method == 'POST':
+		select_year=request.POST.get('select_year')
+		select_month=request.POST.get('select_month')
+		select_day=request.POST.get('select_day')
+		response_data={}
+		response_data['work']='respons is working!'
+		return HttpResponse(
+			json.dumps(response_data),
+			content_type="application/json"
+			)
+
 
 def deleteShare(request):
 	context={}
