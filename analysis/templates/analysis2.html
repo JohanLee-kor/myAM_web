@@ -13,8 +13,19 @@
         var month=res[0];
         var day=res[1];
         var year=res[2];
+        var csrftoken = Cookies.get('csrftoken');
+
+        function csrfSafeMethod(method) {
+    // these HTTP methods do not require CSRF protection
+    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+    }
 
         $.ajax({
+            beforeSend: function(xhr, settings) {
+            f (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                      xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                        }
+            },
             url: "{%url 'search_by_date'%}",//endpoint
             type: "POST",//http method
             data: {
