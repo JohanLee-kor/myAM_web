@@ -26,9 +26,12 @@
             // success : search_by_date_su,
             success: function(json){
                 alert(json);
-            }
+            },
             //handle a non-successful response
-            // error: search_by_date_unsu
+            error: function(json){
+                alert(' ajax fail')
+
+            },
         });
     };
 
