@@ -72,11 +72,12 @@ def search_by_date(request):#AJAX를 사용해서 특정 날짜, 분석 주식�
 		#EX) Entry.objects.filter(pub_date__date=datetime.date(2005, 1, 1))
 		shareList = Share.objects.filter(drv_date__year=select_year, drv_date__month=select_month,drv_date__day=select_day)
 		#shareList_json = json.dumps(list(shareList), cls=DjangoJSONEncoder)
+		dictionaries = [ obj.as_dict() for obj in shareList ]
 
 		#3. JSON 포맷으로 응답
 		response_data={}
 		response_data['work']='respons is working!'
-		response_data['shareList']=str(shareList[0])
+		response_data['shareList']=dictionaries
 		return HttpResponse(
 			json.dumps(response_data),
 			content_type="application/json"

@@ -29,7 +29,12 @@ class Share(models.Model):
 	def getPfit(self):
 		return  self.getDiffPrc()-(0.0015*(self.init_price+self.now_price))
 	def as_dict(self):
-		return {"analysis_type":self.analysis_type}
+		return {"analysis_type": self.analysis_type,
+			"name": self.name,
+			"code": self.code,
+			"init_price": self.init_price,
+			"now_price": self.now_price,
+			"drv_date":str(self.drv_date)}
 		
 class AMuser(models.Model):
 	"""This class a model means my Asset Manager user"""
@@ -42,7 +47,7 @@ class AMuser(models.Model):
 	xing_certificate_pass = models.CharField(max_length=10)
 
 	def __str__(self):
-		return "amiD; %s, am-pass: %s, Acnt_number:%s, Acnt_pw: %s, xing_id: %s, xing_pass: %s, xing_certificate_pass: %s"%(self.am_id, self.am_pass, self.account_number, self.account_pw, self.xing_id, self.xing_pass, self.xing_certificate_pass)
+		return "amiD: %s, am-pass: %s, Acnt_number:%s, Acnt_pw: %s, xing_id: %s, xing_pass: %s, xing_certificate_pass: %s"%(self.am_id, self.am_pass, self.account_number, self.account_pw, self.xing_id, self.xing_pass, self.xing_certificate_pass)
 
 class StockMarket(models.Model):#COSPI: 001, COSDAQ: 301
 	'''This class is a model means stock marget information'''
