@@ -9,6 +9,7 @@ from .models import Share, AMuser, StockMarket
 # import pythoncom
 import time
 import json
+from django.core.serializers.json import DjangoJSONEncoder
 # Create your views here.
 def main(request):
 	context={}
@@ -66,16 +67,16 @@ def search_by_date(request):#AJAX를 사용해서 특정 날짜, 분석 주식�
 		select_month=int(request.POST.get('select_month'))
 		select_day=int(request.POST.get('select_day'))
 
-		print(select_year,select_month,select_day)
 
-		#2. DB에 접근하여 AJAX로 받은 날짜 data에 해당하는 share 조회
+		#2. DB에 접근하여 AJAX로 받은 날짜 data에 해당하는 share 조회 후 querySets을 JSON으로 변경해야 함
 		#EX) Entry.objects.filter(pub_date__date=datetime.date(2005, 1, 1))
 		shareList = Share.objects.filter(drv_date__year=select_year, drv_date__month=select_month,drv_date__day=select_day)
-		print(shareList)
+		shareList_json = json.dumps(list(shareList), cls=DjangoJSONEncoder)
+
 		#3. JSON 포맷으로 응답
 		response_data={}
 		response_data['work']='respons is working!'
-		response_data['shareList']=shareList
+		response_data['shareList']=shareList_json
 		return HttpResponse(
 			json.dumps(response_data),
 			content_type="application/json"
