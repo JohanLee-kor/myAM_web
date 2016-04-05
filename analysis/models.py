@@ -28,6 +28,8 @@ class Share(models.Model):
 		return int(self.now_price-self.init_price)
 	def getPfit(self):
 		return  self.getDiffPrc()-(0.0015*(self.init_price+self.now_price))
+	def as_dict(self):
+		return {"analysis_type":self.analysis_type}
 		
 class AMuser(models.Model):
 	"""This class a model means my Asset Manager user"""
