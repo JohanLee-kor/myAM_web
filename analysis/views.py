@@ -62,13 +62,16 @@ def search_by_date(request):#AJAX를 사용해서 특정 날짜, 분석 주식�
 
 	#1. AJAX를 통해서 온 POST의 날짜 data 추출
 	if request.method == 'POST':
-		select_year=request.POST.get('select_year')
-		select_month=request.POST.get('select_month')
-		select_day=request.POST.get('select_day')
+		select_year=int(request.POST.get('select_year'))
+		select_month=int(request.POST.get('select_month'))
+		select_day=int(request.POST.get('select_day'))
+
+		print(select_year,select_month,select_day)
 
 		#2. DB에 접근하여 AJAX로 받은 날짜 data에 해당하는 share 조회
 		#EX) Entry.objects.filter(pub_date__date=datetime.date(2005, 1, 1))
 		shareList = Share.objects.filter(drv_date__year=select_year, drv_date__month=select_month,drv_date__day=select_day)
+		print(shareList)
 		#3. JSON 포맷으로 응답
 		response_data={}
 		response_data['work']='respons is working!'
