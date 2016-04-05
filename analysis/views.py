@@ -55,12 +55,24 @@ def analysisShare2(request):#jQuery로 날짜를 받는 ui를 제공
 	return render(request,'analysis2.html',context)
 
 def search_by_date(request):#AJAX를 사용해서 특정 날짜, 분석 주식의 데이터를 출력
+	#0. 세션 확인(로그인 여부 확인)
+	isLogin =  request.session.get('am_id', False)
+	if isLogin is False:
+		return HttpResponseRedirect(reverse('home'))
+
+	#1. AJAX를 통해서 온 POST의 날짜 data 추출
 	if request.method == 'POST':
 		select_year=request.POST.get('select_year')
 		select_month=request.POST.get('select_month')
 		select_day=request.POST.get('select_day')
+
+		#2. DB에 접근하여 AJAX로 받은 날짜 data에 해당하는 share 조회
+		#EX) Entry.objects.filter(pub_date__date=datetime.date(2005, 1, 1))
+		shareList = Share.objects.filter(drv_date__date=datetime.date(select_year,select_month,select_day))
+		#3. JSON 포맷으로 응답
 		response_data={}
 		response_data['work']='respons is working!'
+		response_data['shareList']=shareList
 		return HttpResponse(
 			json.dumps(response_data),
 			content_type="application/json"
