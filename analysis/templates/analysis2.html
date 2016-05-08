@@ -55,6 +55,13 @@
             success: function(json){
                 alert('success');
                 console.log(json);//Array[] 형식으로 리턴 받음 해당 정보로 html 에 띄운다
+                $("#shTable").find('tbody').append('<tr><td>{{share.name}}</td>
+    <td>사랑해</td>
+    <td>박주연</td>
+    <td>난</td>
+    <td>네가</td>
+    <td>젛다</td>
+    <td>너도 그러니?</td></tr>');
             },
             //handle a non-successful response
             error: function(json){
