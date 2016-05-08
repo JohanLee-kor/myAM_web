@@ -87,7 +87,7 @@
 <p>Date: <input type="text" id="datepicker">&nbsp;<input type="text" id="alternate" size="30"></p>
 <form method="post" action="{%url 'delete'%}">
     {%csrf_token%}
-<table>
+<table id = "shTable">
 	 <thead>
         <tr>
             <th>NAME</th>
@@ -100,6 +100,7 @@
             <th>DELETE</th>
         </tr>
     </thead>
+    <tbody>
 {% for share in shareList %}
 <tr>
 	<td>{{share.name}}</td>
@@ -112,6 +113,7 @@
     <td><input type="checkbox" name="delete" value={{share.code}}></td>
 </tr>
 {%endfor %}
+</tbody>
 </table>
 <input type="hidden" name="type" value={{analysis_type}}>
 <input type="submit" value="Delete">
