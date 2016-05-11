@@ -36,9 +36,9 @@ class Share(models.Model):
 			"now_price": self.now_price,
 			# "drv_date": str(self.drv_date),
 			"days": self.getDays(),
-			"date": str(self.getDate())
-			# "diff": self.getDiffPrc(),
-			# "profit": self.getPfit()
+			"date": str(self.getDate()),
+			"diff": self.getDiffPrc(),
+			"profit": self.getPfit()
 			}
 		
 class AMuser(models.Model):
