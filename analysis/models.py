@@ -34,7 +34,12 @@ class Share(models.Model):
 			"code": self.code,
 			"init_price": self.init_price,
 			"now_price": self.now_price,
-			"drv_date":str(self.drv_date)}
+			"drv_date": str(self.drv_date),
+			"days": self.getDays(),
+			"date": self.getDate(),
+			"diff": self.getDiffPrc(),
+			"profit": self.getPfit()
+			}
 		
 class AMuser(models.Model):
 	"""This class a model means my Asset Manager user"""
