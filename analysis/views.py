@@ -90,6 +90,7 @@ def deleteShare(request):
 	# share_type=request.POST.get('type',False)
 	fromPage = request.META['HTTP_REFERER']
 	for share in delShares:
+		print(share)
 		info = share.split("#")
 		#info[0] is code, info[1] is analysis type(R3I, R10T)
 		Share.objects.get(code=info[0],analysis_type=info[1]).delete()
