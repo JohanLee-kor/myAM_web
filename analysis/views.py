@@ -87,10 +87,12 @@ def search_by_date(request):#AJAX를 사용해서 특정 날짜, 분석 주식�
 def deleteShare(request):
 	context={}
 	delShares = request.POST.getlist('delete')
-	share_type=request.POST.get('type',False)
+	# share_type=request.POST.get('type',False)
 	fromPage = request.META['HTTP_REFERER']
 	for share in delShares:
-		Share.objects.get(code=share,analysis_type=share_type).delete()
+		info = share.split("#")
+		#info[0] is code, info[1] is analysis type(R3I, R10T)
+		Share.objects.get(code=info[0],analysis_type=info[1]).delete()
 	return HttpResponseRedirect(request.META['HTTP_REFERER'])
 
 
